@@ -1,0 +1,85 @@
+<!-- bill_display.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generated Bill</title>
+    <style>/* style.css */
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        h1, h2 {
+            color: #333;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+        }
+        
+        p {
+            margin: 0;
+        }
+        
+        .total-amount {
+            font-weight: bold;
+        }
+        </style>
+</head>
+
+<body>
+    <h1>Generated Bill</h1>
+
+    <h2>Customer Information</h2>
+    <p>Name: {{ customer_name }}</p>
+    <p>Mobile Number: {{ mobile_number }}</p>
+
+    <h2>Items</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Item Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for bill in items %}
+                <tr>
+                    <td>{{ bill.item.name }}</td>
+                    <td>{{ bill.item.price }}</td>
+                    <td>{{ bill.quantity }}</td>
+                    <td>{{ bill.total_price }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        
+    </table>
+
+    <h2>Total Amount: {{ total_amount }}</h2>
+</body>
+
+</html>

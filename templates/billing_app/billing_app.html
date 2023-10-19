@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billing System</title>
+ 
+<style>/* style.css */
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f8f8;
+        margin: 0;
+        padding: 20px;
+    }
+    
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+    
+    form {
+        max-width: 600px;
+        margin: auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    label, input {
+        display: block;
+        width: calc(100% - 20px);
+        margin-bottom: 10px;
+    }
+    
+    input {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+    
+    button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    
+    button:hover {
+        margin-top: 10px;
+        background-color: #0056b3;
+    }
+    </style>
+</head>
+
+<body>
+    <h1>Create Bill</h1>
+    <form method="post" action="{% url 'create_bill' %}">
+        {% csrf_token %}
+        <label for="customer_name">Customer Name:</label>
+        <input type="text" id="customer_name" name="customer_name" required><br><br>
+
+        <label for="mobile_number">Mobile Number:</label>
+        <input type="tel" id="mobile_number" name="mobile_number" required><br><br>
+
+        <div id="item-container">
+            <!-- Fields for the first item -->
+            <label for="item_name">Item Name:</label>
+            <input type="text" name="item_name[]" required><br><br>
+
+            <label for="price">Price:</label>
+            <input type="number" name="price[]" step="0.01" required><br><br>
+
+            <label for="quantity">Quantity:</label>
+            <input type="number" name="quantity[]" required><br><br>
+        </div>
+
+        <button type="button" onclick="addNewItem()">Add Item</button>
+        <button type="submit">Create Bill</button>
+    </form>
+    <script>
+        function addNewItem() {
+            var itemContainer = document.getElementById("item-container");
+            var newItem = document.createElement("div");
+
+            newItem.innerHTML = `
+                <label for="item_name">Item Name:</label>
+                <input type="text" name="item_name[]" required><br><br>
+                
+                <label for="price">Price:</label>
+                <input type="number" name="price[]" step="0.01" required><br><br>
+                
+                <label for="quantity">Quantity:</label>
+                <input type="number" name="quantity[]" required><br><br>
+            `;
+
+            itemContainer.appendChild(newItem);
+        }
+    </script>
+</body>
+
+</html>

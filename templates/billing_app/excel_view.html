@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel-Like View</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            background-color: #fff;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .total-column {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Customer and Bill Information</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Customer Name</th>
+                <th>Mobile Number</th>
+                <th>Item Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+                <th>Date</th>
+                <th class="total-column">Total Amount</th>
+            </tr>
+        </thead>
+      
+        <tbody>
+            {% for customer, bills in customer_bills.items %}
+                {% with total_price=bills.0.total_price %}
+                    {% for bill in bills %}
+                        <tr>
+                            {% if forloop.first %}
+                                <td rowspan="{{ bills|length }}">{{ customer.name }}</td>
+                                <td rowspan="{{ bills|length }}">{{ customer.mobile_number }}</td>
+                            {% endif %}
+                            <td>{{ bill.item.name }}</td>
+                            <td>{{ bill.item.price }}</td>
+                            <td>{{ bill.quantity }}</td>
+                            <td>{{ bill.total_price }}</td>
+                            {% if forloop.first %}
+                                <td rowspan="{{ bills|length }}">{{ bill.date }}</td>
+                                <td rowspan="{{ bills|length }}" class="total-column">{{ customer.total_price}}</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                {% endwith %}
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>
