@@ -73,7 +73,6 @@ WSGI_APPLICATION = 'billing_project.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -81,10 +80,13 @@ DATABASES = {
         "USER": "default",
         "PASSWORD": "0acgQw3OzWlr",
         "HOST": "ep-noisy-resonance-76492460-pooler.us-east-1.postgres.vercel-storage.com",
-
         "PORT": "5432",
+        "OPTIONS": {
+            "sslmode": "require",
+        },
     }
 }
+
 
 
 # Password validation
